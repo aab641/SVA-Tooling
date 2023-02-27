@@ -53,7 +53,7 @@ if [ $? != 0 ]; then
 	cd nmap
 	./configure
 	make
-	make install
+	sudo make install
 	cd ..
 	echo Installed nmap! && echo
 else
