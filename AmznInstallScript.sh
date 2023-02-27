@@ -6,29 +6,33 @@
 if [ ! -d "testssl.sh" ]; then
 	git clone https://github.com/drwetter/testssl.sh.git
 else
-	echo testssl.sh already downloaded!
+	echo "testssl.sh already downloaded!"
 fi
 if [ ! -d "slowhttptest" ]; then
 	git clone https://github.com/shekyan/slowhttptest.git
 else
-	echo slowhttptest already downloaded!
+	echo "slowhttptest already downloaded!"
 fi
 if [ ! -d "nmap" ]; then
 	git clone https://github.com/nmap/nmap.git
 else
-	echo nmap already downloaded!
+	echo "nmap already downloaded!"
 fi
 if [ ! -d "dependency-check" ]; then
 	wget https://github.com/jeremylong/DependencyCheck/releases/download/v8.1.1/dependency-check-8.1.1-release.zip
 	unzip dependency-check-8.1.1-release.zip
 	rm dependency-check-8.1.1-release.zip
 else
-	echo Dependency-check already downloaded!
+	echo "Dependency-check already downloaded!"
 fi
 
 ping git.amazon.com -c2 | grep '2 received' &> /dev/null
 if [ $? == 0 ]; then
-	git clone ssh://git.amazon.com/pkg/VAPTPublic &> /dev/null
+	if [ ! -d "VAPTPublic" ]; then
+		git clone ssh://git.amazon.com/pkg/VAPTPublic &> /dev/null
+	else
+		echo "VAPTPublic already downloaded!"
+	fi
 else
 	echo Error: VAPT Public not downloaded! You are likely not on an Amazon Cloud Desktop!!
 fi
