@@ -64,7 +64,7 @@ else
 fi
 
 echo Installing Pip!
-pip | grep -q 'pip <command> [options]' &> /dev/null
+python3 -m pip | grep -q 'pip <command> [options]' &> /dev/null
 if [ $? != 0 ]; then
 	python3 get-pip.py && echo && echo Installed pip! && echo
 else
