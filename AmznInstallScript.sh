@@ -40,10 +40,10 @@ echo Downloaded tools. && echo
 
 echo Running setup scripts...
 echo Installing nmap!
-dpkg -l | grep libssl-dev
+yum list installed openssl-dev &> /dev/null/
 if [ $? != 0 ]; then
 	echo "Installing libssl-dev!"
-	sudo apt-get install libssl-dev &> /dev/null
+	sudo yum install -y openssl-devel
 else
 	echo "libssl-dev already installed!."
 fi
