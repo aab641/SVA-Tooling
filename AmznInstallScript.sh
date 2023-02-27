@@ -27,7 +27,6 @@ else
 fi
 
 if nc -z git.amazon.com 22 2>/dev/null; then
-then
 	git clone ssh://git.amazon.com/pkg/VAPTPublic 
 else
 	echo Error: VAPT Public not downloaded! You are likely not on an Amazon Cloud Desktop!!
