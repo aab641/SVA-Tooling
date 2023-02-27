@@ -40,10 +40,10 @@ echo Downloaded tools. && echo
 
 echo Running setup scripts...
 echo Installing nmap!
-yum list installed openssl-dev &> /dev/null/
+yum list installed openssl-dev &> /dev/null
 if [ $? != 0 ]; then
 	echo "Installing openssl-dev!"
-	sudo yum install -y openssl-devel &> /dev/null/
+	sudo yum install -y openssl-devel &> /dev/null
 	echo "Installed openssl-dev!" && echo 
 else
 	echo "openssl-dev already installed!."
