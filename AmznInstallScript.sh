@@ -26,8 +26,9 @@ else
 	echo Dependency-check already downloaded!
 fi
 
-if ping git.amazon.com -c 1 -W 5 | grep '1 received'; then
-	git clone ssh://git.amazon.com/pkg/VAPTPublic 
+ping git.amazon.com -c 1 -W 5 | grep '1 received' &> /dev/null
+if [ $? != 0 ]; then
+	git clone ssh://git.amazon.com/pkg/VAPTPublic &> /dev/null
 else
 	echo Error: VAPT Public not downloaded! You are likely not on an Amazon Cloud Desktop!!
 fi
