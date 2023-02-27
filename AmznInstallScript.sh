@@ -27,7 +27,7 @@ else
 fi
 
 ping git.amazon.com -c2 | grep '2 received'
-if [ $? != 0  ]; then
+if [ $? != 0 ]; then
 	git clone ssh://git.amazon.com/pkg/VAPTPublic &> /dev/null
 else
 	echo Error: VAPT Public not downloaded! You are likely not on an Amazon Cloud Desktop!!
