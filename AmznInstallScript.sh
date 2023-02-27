@@ -1,8 +1,8 @@
-if [ ! -d "ScoutSuite" ]; then
-	git clone https://github.com/nccgroup/ScoutSuite.git
-else
-	echo ScoutSuite already downloaded!
-fi
+#if [ ! -d "ScoutSuite" ]; then
+#	git clone https://github.com/nccgroup/ScoutSuite.git
+#else
+#	echo ScoutSuite already downloaded!
+#fi
 if [ ! -d "testssl.sh" ]; then
 	git clone https://github.com/drwetter/testssl.sh.git
 else
@@ -73,16 +73,16 @@ else
 fi
 
 echo Installing ScoutSuite!
-scout -v | grep 'Scout Suite ' &> /dev/null
+python3 -m pip list | grep 'scout' &> /dev/null
 if [ $? != 0 ]; then
-	cd ScoutSuite
-	python3 -m pip install -r requirements.txt && cd .. && echo && echo ScoutSuite Installed! && echo
+	#cd ScoutSuite
+	python3 -m pip install scoutsuite && cd .. && echo && echo ScoutSuite Installed! && echo
 else
 	echo "ScoutSuite already installed!."
 fi
 
 echo Installing Semgrep!
-semgrep -h | grep 'Usage: semgrep' &> /dev/null
+python3 -m pip list | grep 'semgrep' &> /dev/null
 if [ $? != 0 ]; then
 	python3 -m pip install semgrep && echo && echo Installed semgrep! && echo
 else
