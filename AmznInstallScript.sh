@@ -26,7 +26,7 @@ else
 	echo Dependency-check already downloaded!
 fi
 
-if curl -s http://git.amazon.com >/dev/null
+if nc -z git.amazon.com 22 2>/dev/null; then
 then
 	git clone ssh://git.amazon.com/pkg/VAPTPublic 
 else
