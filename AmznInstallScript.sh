@@ -42,20 +42,24 @@ echo Running setup scripts...
 echo Installing nmap!
 yum list installed openssl-dev &> /dev/null/
 if [ $? != 0 ]; then
-	echo "Installing libssl-dev!"
-	sudo yum install -y openssl-devel
+	echo "Installing openssl-dev!"
+	sudo yum install -y openssl-devel &> /dev/null/
+	echo "Installed openssl-dev!" && echo 
 else
-	echo "libssl-dev already installed!."
+	echo "openssl-dev already installed!."
 fi
 
 nmap -v 2> /dev/null | grep -q 'Starting Nmap' &> /dev/null
 if [ $? != 0 ]; then
 	cd nmap
-	./configure
-	make
-	sudo make install
+	echo "Running NMAP ./configure"
+	./configure &> /dev/null
+	echo "Running make"
+	make &> /dev/null
+	echo "Running sudo make install"
+	sudo make install &> /dev/null
 	cd ..
-	echo Installed nmap! && echo
+	echo "Installed nmap!" && echo
 else
 	echo "nmap already installed!."
 fi
