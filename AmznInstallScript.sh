@@ -26,7 +26,7 @@ else
 	echo Dependency-check already downloaded!
 fi
 
-ping git.amazon.com -c 1 | grep '1 received' &> /dev/null
+ping git.amazon.com -c 1 2> /dev/null | grep '1 received' &> /dev/null
 if [ $? != 0 ]; then
 	git clone ssh://git.amazon.com/pkg/VAPTPublic &> /dev/null
 else
