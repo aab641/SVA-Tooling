@@ -1,3 +1,8 @@
+if [ ! -d "ScoutSuite" ]; then
+	git clone https://github.com/nccgroup/ScoutSuite.git
+else
+	echo ScoutSuite already downloaded!
+fi
 if [ ! -d "testssl.sh" ]; then
 	git clone https://github.com/drwetter/testssl.sh.git
 else
@@ -35,6 +40,13 @@ echo Downloaded tools. && echo
 
 echo Running setup scripts...
 echo Installing nmap!
+dpkg -l | grep libssl-dev
+if [ $? != 0 ]; then
+	echo "Installing libssl-dev!"
+	sudo apt-get install libssl-dev &> /dev/null
+else
+	echo "libssl-dev already installed!."
+fi
 
 nmap -v 2> /dev/null | grep -q 'Starting Nmap' &> /dev/null
 if [ $? != 0 ]; then
