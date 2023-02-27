@@ -48,7 +48,7 @@ else
 	echo "openssl-dev already installed!."
 fi
 
-nmap -v 2> /dev/null | grep -q 'Starting Nmap' &> /dev/null
+nmap -v 2> /dev/null | grep 'Starting Nmap' &> /dev/null
 if [ $? != 0 ]; then
 	cd nmap
 	echo "Running NMAP ./configure"
@@ -64,7 +64,7 @@ else
 fi
 
 echo Installing Pip!
-python3 -m pip | grep -q 'pip <command> [options]' &> /dev/null
+python3 -m pip | grep 'pip <command>' &> /dev/null
 if [ $? != 0 ]; then
 	python3 get-pip.py && echo && echo Installed pip! && echo
 else
@@ -72,7 +72,7 @@ else
 fi
 
 echo Installing ScoutSuite!
-scout -v | grep -q 'Scout Suite ' &> /dev/null
+scout -v | grep 'Scout Suite ' &> /dev/null
 if [ $? != 0 ]; then
 	cd ScoutSuite
 	python3 -m pip install -r requirements.txt && cd .. && echo && echo ScoutSuite Installed! && echo
@@ -81,7 +81,7 @@ else
 fi
 
 echo Installing Semgrep!
-semgrep -h | grep -q 'Usage: semgrep' &> /dev/null
+semgrep -h | grep 'Usage: semgrep' &> /dev/null
 if [ $? != 0 ]; then
 	python3 -m pip install semgrep && echo && echo Installed semgrep! && echo
 else
