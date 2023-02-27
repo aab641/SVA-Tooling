@@ -38,7 +38,7 @@ else
 fi
 
 wget -O get-pip.py https://bootstrap.pypa.io/get-pip.py 2> /dev/null && echo pip downloaded!
-echo Downloaded tools. && echo
+echo && echo Downloaded tools. && echo
 
 ##################################################################################################################
 
