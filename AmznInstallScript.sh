@@ -51,7 +51,7 @@ fi
 echo Installing Pip!
 pip | grep -q 'pip <command> [options]' &> /dev/null
 if [ $? != 0 ]; then
-	python get-pip.py && echo && echo Installed pip! && echo
+	python3 get-pip.py && echo && echo Installed pip! && echo
 else
 	echo "pip already installed!."
 fi
@@ -68,7 +68,7 @@ fi
 echo Installing Semgrep!
 semgrep -h | grep -q 'Usage: semgrep' &> /dev/null
 if [ $? != 0 ]; then
-	python -m pip install semgrep && echo && echo Installed semgrep! && echo
+	python3 -m pip install semgrep && echo && echo Installed semgrep! && echo
 else
 	echo "Semgrep already installed!."
 fi
