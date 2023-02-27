@@ -73,7 +73,7 @@ else
 fi
 
 echo Installing ScoutSuite!
-python3 -m pip list | grep 'scout' &> /dev/null
+python3 -m pip list | grep 'ScoutSuite' &> /dev/null
 if [ $? != 0 ]; then
 	#cd ScoutSuite
 	python3 -m pip install scoutsuite && cd .. && echo && echo ScoutSuite Installed! && echo
