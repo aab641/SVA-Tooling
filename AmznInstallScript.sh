@@ -72,7 +72,7 @@ echo Installing ScoutSuite!
 scout -v | grep -q 'Scout Suite ' &> /dev/null
 if [ $? != 0 ]; then
 	cd ScoutSuite
-	pip install -r requirements.txt && cd .. && echo && echo ScoutSuite Installed! && echo
+	python3 -m pip install -r requirements.txt && cd .. && echo && echo ScoutSuite Installed! && echo
 else
 	echo "ScoutSuite already installed!."
 fi
