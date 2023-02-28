@@ -72,11 +72,11 @@ echo "Installing slowhttptest!"
 cd slowhttptest
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 echo "Running slowhttptest ./configure"
-./configure --prefix=$SCRIPT_DIR &> /dev/null
+./configure --prefix=$SCRIPT_DIR
 echo "Running make"
-make &> /dev/null
+make 
 echo "Running sudo make install"
-sudo make install &> /dev/null
+sudo make install
 cd ..
 echo "Installed slowhttptest!" && echo
 
