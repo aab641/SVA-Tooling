@@ -113,6 +113,13 @@ fi
 
 echo && echo "Installed toolings!" && echo
 echo "Creating default files."
-echo example.com >> hosts.txt
-echo "" >> serviceroles.txt
-echo "ssh://git.amazon.com/dkpg/example" >> codepackages.txt
+
+FILE=hosts.txt
+if [ -f "$FILE" ]; then
+    echo "Defaults exist!"
+else 
+    echo "Defaults do not exist."
+    echo example.com >> 
+    echo "" >> serviceroles.txt
+    echo "ssh://git.amazon.com/dkpg/example" >> codepackages.txt
+fi
