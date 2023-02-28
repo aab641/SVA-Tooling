@@ -40,7 +40,7 @@ else
 	echo "Directory ~/$1/testssl/ already exists."
 fi
 echo
-echo "Making testssl directory."
+echo "Making slowhttptest directory."
 if [ ! -d "$1/slowhttptest" ]; then
 	mkdir "$1/slowhttptest"
 else
@@ -62,7 +62,7 @@ echo
 
 cd $1/slowhttptest
 echo "Performing slowhttptests."
-for word in $(cat $2); do 
+for word in $(cat "../$2"); do 
 mkdir $word
 cd $word
 ./slowhttptest/bin/slowhttptest -c 40000 -X -g -o slowread -r 200 -w 512 -y 1024 -n 5 -z 32 -k 3 -u https://$word -p 3
