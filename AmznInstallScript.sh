@@ -70,17 +70,21 @@ fi
 
 echo "Installing slowhttptest!"
 cd slowhttptest
-CWD=$(pwd)
-echo $CWD
-autoreconf -f -i
-echo "Running slowhttptest ./configure"
-./configure --prefix=$CWD
-echo "Running make"
-make 
-echo "Running sudo make install"
-sudo make install
+if [ ! -d "bin" ]; then
+	CWD=$(pwd)
+	echo $CWD
+	autoreconf -f -i
+	echo "Running slowhttptest ./configure"
+	./configure --prefix=$CWD
+	echo "Running make"
+	make 
+	echo "Running sudo make install"
+	sudo make install
+	echo "Installed slowhttptest!" && echo
+else
+	echo "slowhttptest already installed!"
+fi
 cd ..
-echo "Installed slowhttptest!" && echo
 
 echo Installing Pip!
 python3 -m pip | grep 'pip <command>' &> /dev/null
