@@ -70,8 +70,9 @@ fi
 
 echo "Installing slowhttptest!"
 cd slowhttptest
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 CWD=$(pwd)
+echo $CWD
+autoreconf -f -i
 echo "Running slowhttptest ./configure"
 ./configure --prefix=$CWD
 echo "Running make"
