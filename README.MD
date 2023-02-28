@@ -14,9 +14,9 @@ Note:
 
 How it works?
 - The scan script will create a directory projectName.
-- folders for each test will be created.
-- folders for each domain will be created within each test.
-- each folder will have all the associated test files for the respective domain and test-folder.
+  - sub-folders for each test will be created.
+    - sub-folders for each domain will be created within each test folder.
+      - respective testing documentation for the domain and test folder.
 
 The install script includes the following tools
 - nmap
