@@ -13,7 +13,7 @@ Note:
 - The install script is intended to be run on a Amazon Cloud Desktop.
 
 How it works?
-- The scan application will create a directory projectName.
+- The scan script will create a directory projectName.
 - folders for each test will be created.
 - folders for each domain will be created within each test.
 - each folder will have all the associated test files for the respective domain and test-folder.
