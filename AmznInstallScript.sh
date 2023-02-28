@@ -68,6 +68,18 @@ else
 	echo "nmap already installed!."
 fi
 
+echo "Installing slowhttptest!"
+cd slowhttptest
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+echo "Running slowhttptest ./configure"
+./configure --prefix=$SCRIPT_DIR &> /dev/null
+echo "Running make"
+make &> /dev/null
+echo "Running sudo make install"
+sudo make install &> /dev/null
+cd ..
+echo "Installed slowhttptest!" && echo
+
 echo Installing Pip!
 python3 -m pip | grep 'pip <command>' &> /dev/null
 if [ $? != 0 ]; then
@@ -93,4 +105,8 @@ else
 	echo "Semgrep already installed!."
 fi
 
-echo && echo Installed toolings!
+echo && echo "Installed toolings!" && echo
+echo "Creating default files."
+echo example.com >> hosts.txt
+echo "" >> serviceroles.txt
+echo "ssh://git.amazon.com/dkpg/example" >> codepackages.txt
