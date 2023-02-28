@@ -8,8 +8,8 @@ How to use:
 - sh AmznScanScript.sh projectName hosts.txt serviceroles.txt codepackages.txt
 
 Note:
-- serviceroles does nothing and will be removed.
-- codepackages does nothing so far.
+- serviceroles.txt does nothing and will be removed.
+- codepackages.txt does nothing so far.
 - The install script is intended to be run on a Amazon Cloud Desktop.
 
 How it works?
