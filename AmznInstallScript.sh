@@ -119,7 +119,7 @@ if [ -f "$FILE" ]; then
     echo "Defaults exist!"
 else 
     echo "Defaults do not exist."
-    echo example.com >> 
-    echo "" >> serviceroles.txt
-    echo "ssh://git.amazon.com/dkpg/example" >> codepackages.txt
+    echo "example.com" >> "hosts.txt"
+    echo "" >> "serviceroles.txt"
+    echo "ssh://git.amazon.com/dkpg/example" >> "codepackages.txt"
 fi
