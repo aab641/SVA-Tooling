@@ -1,11 +1,11 @@
 How to install:
-git clone https://github.com/aab641/SVA-Tooling.git
-cd SVA-Tooling
-sh AmznInstallScript.sh
+- git clone https://github.com/aab641/SVA-Tooling.git
+- cd SVA-Tooling
+- sh AmznInstallScript.sh
 
 How to use:
-cd SVA-Tooling
-sh AmznScanScript.sh projectName hosts.txt serviceroles.txt codepackages.txt
+- cd SVA-Tooling
+- sh AmznScanScript.sh projectName hosts.txt serviceroles.txt codepackages.txt
 
 Note:
 - serviceroles does nothing and will be removed.
