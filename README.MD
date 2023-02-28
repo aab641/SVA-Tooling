@@ -10,6 +10,7 @@ How to use:
 Note:
 - serviceroles does nothing and will be removed.
 - codepackages does nothing so far.
+- The install script is intended to be run on a Amazon Cloud Desktop.
 
 How it works?
 - The application will create a directory projectName.
