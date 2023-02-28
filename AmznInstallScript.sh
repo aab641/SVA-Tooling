@@ -114,12 +114,12 @@ fi
 echo && echo "Installed toolings!" && echo
 echo "Creating default files."
 
-FILE=hosts.txt
+FILE=serviceroles.txt
 if [ -f "$FILE" ]; then
     echo "Defaults exist!"
 else 
     echo "Defaults do not exist."
-    echo "example.com" >> "hosts.txt"
+    echo "" >> "hosts.txt"
     echo "" >> "serviceroles.txt"
-    echo "ssh://git.amazon.com/dkpg/example" >> "codepackages.txt"
+    echo "" >> "codepackages.txt"
 fi
