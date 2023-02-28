@@ -60,18 +60,14 @@ echo "Performing ssltest."
 #for word in $(cat $2); do bash testssl.sh/testssl.sh --ip one --parallel --outprefix "$1/testssl/" --html $word; done
 echo
 
-cd $1/slowhttptest
 echo "Performing slowhttptests."
-for word in $(cat "../../$2"); do 
+for word in $(cat "$2"); do 
 mkdir $word
-cd $word
-./slowhttptest/bin/slowhttptest -c 40000 -X -g -o slowread -r 200 -w 512 -y 1024 -n 5 -z 32 -k 3 -u https://$word -p 3
-./slowhttptest/bin/slowhttptest -c 500 -H -g -o slowhttp -i 10 -r 200 -t GET -u https://$word -x 24 -p 3
-./slowhttptest/bin/slowhttptest -c 2000 -B -g -o slowbody -i 100 -s 7000 -r 200 -t GET -u https://$word -x 24 -p 3
-./slowhttptest/bin/slowhttptest -R -u https://$word -t HEAD -c 1000 -a 10 -b 3000 -r 500 -i 10  -g -o rangeheader
-cd ..
+./slowhttptest/bin/slowhttptest -c 40000 -X -g -o $1/slowhttptest/$word/$word-slowread -r 200 -w 512 -y 1024 -n 5 -z 32 -k 3 -u https://$word -p 3
+./slowhttptest/bin/slowhttptest -c 500 -H -g -o $1/slowhttptest/$word/$word-slowhttp -i 10 -r 200 -t GET -u https://$word -x 24 -p 3
+./slowhttptest/bin/slowhttptest -c 2000 -B -g -o $1/slowhttptest/$word/$word-slowbody -i 100 -s 7000 -r 200 -t GET -u https://$word -x 24 -p 3
+./slowhttptest/bin/slowhttptest -R -u https://$word -t HEAD -c 1000 -a 10 -b 3000 -r 500 -i 10  -g -o $1/slowhttptest/$word/$word-rangeheader
 done
-cd ..
 echo
 
 
