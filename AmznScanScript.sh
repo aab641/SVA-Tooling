@@ -40,6 +40,13 @@ else
 	echo "Directory ~/$1/testssl/ already exists."
 fi
 echo
+echo "Making testssl directory."
+if [ ! -d "$1/slowhttptest" ]; then
+	mkdir "$1/slowhttptest"
+else
+	echo "Directory ~/$1/slowhttptest/ already exists."
+fi
+echo
 
 echo "Performing TCP nmap scan."
 #for word in $(cat $2); do mkdir $1/nmap/$word; sudo nmap -p0- -A -T4 -sS --max-retries 0 $word -oN "$1/nmap/$word/$1-$word-TCP_nmap.txt" -oX "$1/nmap/$word/$1-$word-TCP_nmap.xml"; done
@@ -53,13 +60,18 @@ echo "Performing ssltest."
 #for word in $(cat $2); do bash testssl.sh/testssl.sh --ip one --parallel --outprefix "$1/testssl/" --html $word; done
 echo
 
+cd $1/slowhttptest
 echo "Performing slowhttptests."
 for word in $(cat $2); do 
+mkdir $word
+cd $word
 ./slowhttptest/bin/slowhttptest -c 40000 -X -g -o slowread -r 200 -w 512 -y 1024 -n 5 -z 32 -k 3 -u https://$word -p 3
 ./slowhttptest/bin/slowhttptest -c 500 -H -g -o slowhttp -i 10 -r 200 -t GET -u https://$word -x 24 -p 3
 ./slowhttptest/bin/slowhttptest -c 2000 -B -g -o slowbody -i 100 -s 7000 -r 200 -t GET -u https://$word -x 24 -p 3
 ./slowhttptest/bin/slowhttptest -R -u https://$word -t HEAD -c 1000 -a 10 -b 3000 -r 500 -i 10  -g -o rangeheader
+cd ..
 done
+cd ..
 echo
 
 
