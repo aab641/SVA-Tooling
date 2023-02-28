@@ -17,3 +17,17 @@ How it works?
 - folders for each test will be created.
 - folders for each domain will be created within each test.
 - each folder will have all the associated test files for the respective domain and test-folder.
+
+The install script includes the following tools
+- nmap
+- testssl
+- slowhttptest
+- semgrep
+- scoutsuite
+- VAPTPublic (if available)
+- dependency-check
+- pip
+- libssl-dev
+
+Requires the following softwares:
+- Python3
