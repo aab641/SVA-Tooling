@@ -1,8 +1,8 @@
-#if [ ! -d "ScoutSuite" ]; then
-#	git clone https://github.com/nccgroup/ScoutSuite.git
-#else
-#	echo ScoutSuite already downloaded!
-#fi
+if [ ! -d "ScoutSuite" ]; then
+	git clone https://github.com/nccgroup/ScoutSuite.git
+else
+	echo ScoutSuite already downloaded!
+fi
 if [ ! -d "testssl.sh" ]; then
 	git clone https://github.com/drwetter/testssl.sh.git
 else
@@ -114,12 +114,11 @@ fi
 echo && echo "Installed toolings!" && echo
 echo "Creating default files."
 
-FILE=serviceroles.txt
+FILE="codepackages.txt"
 if [ -f "$FILE" ]; then
     echo "Defaults exist!"
 else 
     echo "Defaults do not exist."
     echo "" >> "hosts.txt"
-    echo "" >> "serviceroles.txt"
     echo "" >> "codepackages.txt"
 fi

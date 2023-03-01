@@ -11,12 +11,13 @@ then
     echo "Hosts: $2"
     for word in $(cat $2); do echo $word; done
     echo
-    echo "Service Roles: $3"
+    echo "Service Roles:"
     echo
-    echo "Code Package URLs: $4"
+    echo "Code Package URLs: $3"
+    for word in $(cat $3); do echo $word; done
     echo
 else
-    echo "Syntax is as follows: AmznScanScript.sh <projectName> <hosts.txt> <serviceroles.txt> <codepackages.txt>"
+    echo "Syntax is as follows: AmznScanScript.sh <projectName> <hosts.txt> <codepackages.txt>"
     exit 1
 fi
 
@@ -47,6 +48,17 @@ else
 	echo "Directory ~/$1/slowhttptest/ already exists."
 fi
 echo
+
+if [ $AWS_ACCESS_KEY_ID ]; then
+	echo "Making scoutsuite directory."
+	if [ ! -d "$1/scoutsuite" ]; then
+		mkdir "$1/scoutsuite"
+	else
+		echo "Directory ~/$1/scoutsuite/ already exists."
+	fi
+	echo
+	python3 ScoutSuite/scout.py aws --report-dir "$1/scoutsuite" --report-name "$1-scoutsuite-report" --access-keys --access-key-id $AWS_ACCESS_KEY_ID --secret-access-key $AWS_SECRET_ACCESS_KEY --session-token $AWS_SESSION_TOKEN
+fi
 
 echo "Performing TCP nmap scan."
 for word in $(cat $2); do mkdir $1/nmap/$word; sudo nmap -p0- -A -T4 -sS --max-retries 0 $word -oN "$1/nmap/$word/$1-$word-TCP_nmap.txt" -oX "$1/nmap/$word/$1-$word-TCP_nmap.xml"; done
