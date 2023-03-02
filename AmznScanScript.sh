@@ -99,6 +99,14 @@ else
 fi
 echo
 
+echo "Making VAPTPublic directory."
+if [ ! -d "$1/VAPTPublic" ]; then
+	mkdir "$1/VAPTPublic"
+else
+	echo "Directory ~/$1/VAPTPublic/ already exists."
+fi
+echo
+
 echo "Downloading code packages."
 echo "Making folder '/code-packages/' in directory '/$1'."
 if [ ! -d "$1/code-packages" ]; then
@@ -116,7 +124,10 @@ echo "Done cloning repositories."
 echo 
 
 echo "Running VAPTPublic check endpoints module."
-for word in $(cat $2); do python3 VAPTPublic/tools/tls_checking/check_endpoints.py $word; done
+for word in $(cat $2); do 
+	touch "$1/VAPTPublic/$1-$word-check_endpoint_script_results.txt";
+	python3 VAPTPublic/tools/tls_checking/check_endpoints.py $word >> "$1/VAPTPublic/$1-$word-check_endpoint_script_results.txt";
+done
 echo "Done performing check_endpoints.py."
 echo
 
