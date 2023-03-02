@@ -119,7 +119,10 @@ echo "Running Dependency-Check."
 echo "Done running dependency-check"
 echo
 echo "Running semgrep."
-python3 -m semgrep --config "auto" "$1/code-packages" -o "$1/semgrep/$1-semgrep_results.txt"
+cd "$1/code-packages"
+for d in */ ; do
+	python3 -m semgrep --config "auto" "$1/code-packages/$d" -o "$1/semgrep/$d-semgrep_results.txt"
+done
 echo "Done running semgrep."
 echo 
 echo "Done" && exit 1;
