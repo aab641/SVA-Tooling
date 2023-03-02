@@ -25,7 +25,7 @@ then
     search="https:\/\/code.amazon.com\/packages\/"
     replace="ssh:\/\/git.amazon.com\/pkg\/"
     sed -i "s/$search/$replace/g" $3
-    search="\/trees\/mainline/"
+    search="\/trees\/mainline\/"
     replace=" "
     sed -i "s/$search/$replace/g" $3
     
