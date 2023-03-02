@@ -107,7 +107,7 @@ done
 echo "Done cloning repositories."
 echo 
 echo "Running Dependency-Check."
-sh dependency-check/bin/dependency-check.sh --project "$1-dependency_check_report" --scan "$1/code-packages" --out "$1/dependency-check" 
+sh dependency-check/bin/dependency-check.sh --scan "$1/code-packages" --out "$1/dependency-check/$1-dependency_check_report.html" 
 
 echo "Done" && exit 1;
 
