@@ -44,6 +44,7 @@ echo && echo Downloaded tools. && echo
 
 echo Running setup scripts...
 echo Installing nmap!
+
 yum list installed | grep 'openssl-devel' &> /dev/null
 if [ $? != 0 ]; then
 	echo "Installing openssl-dev!"
@@ -51,6 +52,15 @@ if [ $? != 0 ]; then
 	echo "Installed openssl-dev!" 
 else
 	echo "openssl-dev already installed!."
+fi
+
+yum list installed | grep 'java-17-amazon' &> /dev/null
+if [ $? != 0 ]; then
+	echo "Installing java!"
+	sudo yum install -y java &> /dev/null
+	echo "Installed java!" 
+else
+	echo "Java already installed!."
 fi
 
 nmap -v 2> /dev/null | grep 'Starting Nmap' &> /dev/null
@@ -119,6 +129,6 @@ if [ -f "$FILE" ]; then
     echo "Defaults exist!"
 else 
     echo "Defaults do not exist."
-    echo "" >> "hosts.txt"
-    echo "" >> "codepackages.txt"
+    touch "hosts.txt"
+    touch "codepackages.txt"
 fi
