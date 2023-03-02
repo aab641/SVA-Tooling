@@ -6,7 +6,8 @@ fi
 
 if [ $# -eq 3 ];
 then
-    echo "ProjectName:\n 	$1"
+    echo "ProjectName:"
+    echo " 	$1"
     echo
     echo "Hosts:"
     for word in $(cat $2);
@@ -106,7 +107,7 @@ done
 echo "Done cloning repositories."
 echo 
 echo "Running Dependency-Check."
-sh dependency-check/bin/dependency-check.sh --scan "$1/code-packages" --out "$1/dependency-check" --project "$1-dependency_check"
+sh dependency-check/bin/dependency-check.sh --project "$1-dependency_check_report" --scan "$1/code-packages" --out "$1/dependency-check" 
 
 echo "Done" && exit 1;
 
