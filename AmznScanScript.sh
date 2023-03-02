@@ -121,8 +121,9 @@ echo
 echo "Running semgrep."
 cd "$1/code-packages"
 for d in */ ; do
-	python3 -m semgrep --config "auto" "$1/code-packages/$d" -o "$1/semgrep/$d-semgrep_results.txt"
+	python3 -m semgrep --config "auto" "$d" -o "../semgrep/$d-semgrep_results.txt"
 done
+cd "../.."
 echo "Done running semgrep."
 echo 
 echo "Done" && exit 1;
