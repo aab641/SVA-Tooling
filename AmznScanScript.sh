@@ -114,15 +114,13 @@ for word in $(cat $3); do
 done
 echo "Done cloning repositories."
 echo 
-echo "Running Dependency-Check."
-#sh dependency-check/bin/dependency-check.sh --scan "$1/code-packages" --out "$1/dependency-check/$1-dependency_check_report.html" &> /dev/null
-echo "Done running dependency-check"
+
+echo "Running VAPTPublic check endpoints module."
+for word in $(cat $2); do python3 VAPTPublic/tools/tls_checking/check_endpoints.py $word; done
+echo "Done performing check_endpoints.py."
 echo
-echo "Running semgrep."
-python3 -m semgrep --config "auto" $1/code-packages/* -o $1/semgrep/$1-semgrep_results.txt
-echo "Done running semgrep."
-echo 
-echo "Done" && exit 1;
+
+exit 1;
 
 echo "Performing ScoutSuite scan."
 if [ $AWS_ACCESS_KEY_ID ]; then
@@ -139,6 +137,18 @@ else
 	echo "AWS ACCESS KEYS NOT DETECTED! SKIPPING SCOUTSUITE AUDIT!"
 	echo 
 fi
+
+echo "Running Dependency-Check."
+sh dependency-check/bin/dependency-check.sh --scan "$1/code-packages" --out "$1/dependency-check/$1-dependency_check_report.html" &> /dev/null
+echo "Done running dependency-check"
+echo
+
+echo "Running semgrep."
+python3 -m semgrep --config "auto" $1/code-packages/* -o $1/semgrep/$1-semgrep_results.txt
+echo "Done running semgrep."
+echo 
+
+
 
 echo "Performing TCP nmap scan."
 for word in $(cat $2); do mkdir $1/nmap/$word; sudo nmap -p0- -A -T4 -sS --max-retries 0 $word -oN "$1/nmap/$word/$1-$word-TCP_nmap.txt" -oX "$1/nmap/$word/$1-$word-TCP_nmap.xml"; done
