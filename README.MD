@@ -5,11 +5,9 @@ How to install:
 
 How to use:
 - cd SVA-Tooling
-- sh AmznScanScript.sh projectName hosts.txt serviceroles.txt codepackages.txt
+- sh AmznScanScript.sh projectName hosts.txt codepackages.txt
 
 Note:
-- serviceroles.txt does nothing and will be removed.
-- codepackages.txt does nothing so far.
 - The install script is intended to be run on a Amazon Cloud Desktop.
 
 How it works?
