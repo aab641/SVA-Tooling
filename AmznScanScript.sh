@@ -91,6 +91,14 @@ else
 fi
 echo
 
+echo "Making semgrep directory."
+if [ ! -d "$1/semgrep" ]; then
+	mkdir "$1/semgrep"
+else
+	echo "Directory ~/$1/semgrep/ already exists."
+fi
+echo
+
 echo "Downloading code packages."
 echo "Making folder '/code-packages/' in directory '/$1'."
 if [ ! -d "$1/code-packages" ]; then
@@ -111,7 +119,7 @@ echo "Running Dependency-Check."
 echo "Done running dependency-check"
 echo
 echo "Running semgrep."
-python3 -m semgrep --config "auto" "$1/code-packages" -o "$1/dependency-check/$1-semgrep_results.txt"
+python3 -m semgrep --config "auto" "$1/code-packages" -o "$1/semgrep/$1-semgrep_results.txt"
 echo "Done running semgrep."
 echo 
 echo "Done" && exit 1;
