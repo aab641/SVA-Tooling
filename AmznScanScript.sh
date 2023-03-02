@@ -107,8 +107,13 @@ done
 echo "Done cloning repositories."
 echo 
 echo "Running Dependency-Check."
-sh dependency-check/bin/dependency-check.sh --scan "$1/code-packages" --out "$1/dependency-check/$1-dependency_check_report.html" 
-
+#sh dependency-check/bin/dependency-check.sh --scan "$1/code-packages" --out "$1/dependency-check/$1-dependency_check_report.html" &> /dev/null
+echo "Done running dependency-check"
+echo
+echo "Running semgrep."
+python3 -m semgrep --config "auto" "$1/code-packages" -o "$1/dependency-check/$1-semgrep_results.txt"
+echo "Done running semgrep."
+echo 
 echo "Done" && exit 1;
 
 echo "Performing ScoutSuite scan."
