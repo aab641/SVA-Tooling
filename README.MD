@@ -27,7 +27,8 @@ The install script includes the following tools
 - VAPTPublic (if available)
 - dependency-check
 - pip
-- libssl-dev
+- libssl-dev (via yum)
+- java (via yum)
 
 Requires the following softwares:
 - Python3
