@@ -5,6 +5,7 @@ How to install:
 
 How to use:
 - cd SVA-Tooling
+- Paste isengard BASH service-role creds so environment variables are set.
 - sh AmznScanScript.sh projectName hosts.txt codepackages.txt
 
 Note:
