@@ -8,12 +8,18 @@ if [ $# -eq 3 ];
 then
     echo "ProjectName:\n 	$1"
     echo
-    echo "Hosts: $2"
+    echo "Hosts:"
     for word in $(cat $2);
     do 
     	echo "	$word";
     done
     echo
+    echo "ScoutSuite Access Credentials."
+    echo "	\$AWS_ACCESS_KEY_ID	= $AWS_ACCESS_KEY_ID"
+    echo "	\$AWS_SECRET_ACCESS_KEY	= $AWS_SECRET_ACCESS_KEY"
+    echo "	\$AWS_SESSION_TOKEN	= $AWS_SESSION_TOKEN"
+    echo  
+    
         echo "Code Package URLs: $3"
     echo 
     for word in $(cat $3); do
@@ -27,14 +33,22 @@ then
     search="https:\/\/code.amazon.com\/packages\/"
     replace="ssh:\/\/git.amazon.com\/pkg\/"
     sed -i "s/$search/$replace/g" $3
-    search="\/trees\/mainline\/"
-    replace=" "
-    sed -i "s/$search/$replace/g" $3
     
+    FILE="tmpCodePackages.txt"
+    if [ -f "$FILE" ]; then
+        rm "tmpCodePackages.txt";
+    fi
+    touch "tmpCodePackages.txt"
+    for word in $(cat $3); do
+    	echo "$word" | cut -d'/' -f1-5 >> "tmpCodePackages.txt";
+    done
+    mv -f "tmpCodePackages.txt" "codepackages.txt";
+    echo "Fixed URLs."
+    echo 
     for word in $(cat $3); do
     	echo "	$word";
     done
-    echo
+    echo 
 else
     echo "Syntax is as follows: AmznScanScript.sh <projectName> <hosts.txt> <codepackages.txt>"
     exit 1
@@ -68,6 +82,13 @@ else
 	echo "Directory ~/$1/slowhttptest/ already exists."
 fi
 echo
+echo "Making dependency-check directory."
+if [ ! -d "$1/dependency-check" ]; then
+	mkdir "$1/dependency-check"
+else
+	echo "Directory ~/$1/dependency-check/ already exists."
+fi
+echo
 
 echo "Downloading code packages."
 echo "Making folder '/code-packages/' in directory '/$1'."
@@ -82,8 +103,12 @@ for word in $(cat $3); do
 	git clone "$word";
 	cd "../..";
 done
+echo "Done cloning repositories."
+echo 
+echo "Running Dependency-Check."
+sh dependency-check/bin/dependency-check.sh --scan "$1/code-packages" --out "$1/dependency-check" --project "$1-dependency_check"
 
-exit 1;
+echo "Done" && exit 1;
 
 echo "Performing ScoutSuite scan."
 if [ $AWS_ACCESS_KEY_ID ]; then
@@ -100,8 +125,6 @@ else
 	echo "AWS ACCESS KEYS NOT DETECTED! SKIPPING SCOUTSUITE AUDIT!"
 	echo 
 fi
-
-
 
 echo "Performing TCP nmap scan."
 for word in $(cat $2); do mkdir $1/nmap/$word; sudo nmap -p0- -A -T4 -sS --max-retries 0 $word -oN "$1/nmap/$word/$1-$word-TCP_nmap.txt" -oX "$1/nmap/$word/$1-$word-TCP_nmap.xml"; done
