@@ -99,13 +99,16 @@ else
 fi
 echo
 
-echo "Making VAPTPublic directory."
-if [ ! -d "$1/VAPTPublic" ]; then
-	mkdir "$1/VAPTPublic"
-else
-	echo "Directory ~/$1/VAPTPublic/ already exists."
+if [ -d "VAPTPublic" ]; then
+	echo "Making VAPTPublic directory."
+	if [ ! -d "$1/VAPTPublic" ]; then
+		mkdir "$1/VAPTPublic"
+	else
+		echo "Directory ~/$1/VAPTPublic/ already exists."
+	fi
+	echo	
 fi
-echo
+
 
 echo "Downloading code packages."
 echo "Making folder '/code-packages/' in directory '/$1'."
@@ -122,16 +125,6 @@ for word in $(cat $3); do
 done
 echo "Done cloning repositories."
 echo 
-
-echo "Running VAPTPublic check endpoints module."
-for word in $(cat $2); do 
-	touch "$1/VAPTPublic/$1-$word-check_endpoint_script_results.txt";
-	python3 VAPTPublic/tools/tls_checking/check_endpoints.py $word >> "$1/VAPTPublic/$1-$word-check_endpoint_script_results.txt";
-done
-echo "Done performing check_endpoints.py."
-echo
-
-exit 1;
 
 echo "Performing ScoutSuite scan."
 if [ $AWS_ACCESS_KEY_ID ]; then
@@ -159,14 +152,23 @@ python3 -m semgrep --config "auto" $1/code-packages/* -o $1/semgrep/$1-semgrep_r
 echo "Done running semgrep."
 echo 
 
-
+if [ -d "VAPTPublic" ]; then
+	echo "Running VAPTPublic check endpoints module."
+	for word in $(cat $2); do 
+		echo "checking endpoint: $word"
+		touch "$1/VAPTPublic/$1-$word-check_endpoint_script_results.txt";
+		python3 VAPTPublic/tools/tls_checking/check_endpoints.py $word >> "$1/VAPTPublic/$1-$word-check_endpoint_script_results.txt";
+	done
+	echo "Done performing check_endpoints.py."
+	echo	
+fi
 
 echo "Performing TCP nmap scan."
 for word in $(cat $2); do mkdir $1/nmap/$word; sudo nmap -p0- -A -T4 -sS --max-retries 0 $word -oN "$1/nmap/$word/$1-$word-TCP_nmap.txt" -oX "$1/nmap/$word/$1-$word-TCP_nmap.xml"; done
 echo 
 
 echo "Performing UDP nmap scan."
-for word in $(cat $2); do mkdir $1/nmap/$word; sudo nmap -p0- -A -T4 -sU --max-retries 0 $word -oN "$1/nmap/$word/$1-$word-UDP_nmap.txt" -oX "$1/nmap/$word/$1-$word-UDP_nmap.xml"; done
+#for word in $(cat $2); do mkdir $1/nmap/$word; sudo nmap -p0- -A -T4 -sU --max-retries 0 $word -oN "$1/nmap/$word/$1-$word-UDP_nmap.txt" -oX "$1/nmap/$word/$1-$word-UDP_nmap.xml"; done
 echo
 
 echo "Performing ssltest."
