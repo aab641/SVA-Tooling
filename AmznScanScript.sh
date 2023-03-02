@@ -6,20 +6,22 @@ fi
 
 if [ $# -eq 3 ];
 then
-    echo "ProjectName: $1"
+    echo "ProjectName:\n 	$1"
     echo
     echo "Hosts: $2"
     for word in $(cat $2);
     do 
-    	echo $word;
+    	echo "	$word";
     done
     echo
         echo "Code Package URLs: $3"
+    echo 
     for word in $(cat $3); do
-    	echo "$word";
+    	echo "	$word";
     done
     echo 
-    echo "Fixing code package URLs"
+    echo "Fixing code package URLs (overwritten file in-place)"
+    echo 
     # Assign the filename
     
     search="https:\/\/code.amazon.com\/packages\/"
@@ -29,9 +31,8 @@ then
     replace=" "
     sed -i "s/$search/$replace/g" $3
     
-    echo "Code Package URLs: $3"
     for word in $(cat $3); do
-    	echo "$word";
+    	echo "	$word";
     done
     echo
 else
@@ -45,6 +46,7 @@ if [ ! -d "$1" ]; then
 else
 	echo "Directory ~/$1 already exists."
 fi
+echo 
 echo "Making nmap directory."
 if [ ! -d "$1/nmap" ]; then
 	mkdir "$1/nmap"
