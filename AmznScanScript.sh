@@ -172,7 +172,7 @@ echo "Performing UDP nmap scan."
 echo
 
 echo "Performing ssltest."
-for word in $(cat $2); do bash testssl.sh/testssl.sh --ip one --parallel --outprefix "$1/testssl/" --html $word; done
+for word in $(cat $2); do bash testssl.sh/testssl.sh --ip one --parallel --outprefix "$1/testssl/$1" --html $word; done
 echo
 
 echo "Performing slowhttptests."
